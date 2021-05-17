@@ -11,15 +11,11 @@ if (mysqli_connect_errno()) {
     echo "Faild to connect to MySQL:" . mysqli_connect_error();
 }
 $user_email = $_POST['email'];
-$user_pw = $_POST['passwd'];
-$user_birth = $_POST['birth'];
-$user_weight = $_POST['weight'];
-$user_token = $_POST['token'];
-$result = mysqli_query($con, "insert into profile (email, passwd, birth, weight, token) values ('$user_email','$user_pw', '$user_birth', '$user_weight','$user_token')");
-if ($result) {
-    echo 'success';
+$result = mysqli_query($con, "select bloodsugar from db.bloodsugar  where email='$user_email' order by idx desc LIMIT 1;");
+if ($result < 70) {
+    echo 'OK';
 } else {
-    echo 'failure';
+    echo 'notOK';
 }
 mysqli_close($con);
 ?>

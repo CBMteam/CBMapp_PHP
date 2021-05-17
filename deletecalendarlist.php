@@ -10,12 +10,10 @@ mysqli_query($con, "set session character_set_client=utf8;");
 if (mysqli_connect_errno()) {
     echo "Faild to connect to MySQL:" . mysqli_connect_error();
 }
-$user_email = $_POST['email'];
-$user_pw = $_POST['passwd'];
-$user_birth = $_POST['birth'];
-$user_weight = $_POST['weight'];
-$user_token = $_POST['token'];
-$result = mysqli_query($con, "insert into profile (email, passwd, birth, weight, token) values ('$user_email','$user_pw', '$user_birth', '$user_weight','$user_token')");
+$user_email = $_POST['user_email'];
+$user_date = $_POST['user_date'];
+$result = mysqli_query($con, "delete from insulin where email='$user_email' and date(fDate)='$user_date';");
+$result = mysqli_query($con, "delete from carb where email='$user_email' and date(fDate)='$user_date';");
 if ($result) {
     echo 'success';
 } else {
